@@ -14,14 +14,14 @@ client = discord.Client()
 @client.event
 async def on_message(message):
 
-    if message.channel.name=='the-gay-agenda':
+    if message.channel.id == 750111111092764874:
         if not (message.content.startswith('(')):
             await message.add_reaction(u"\U0001F44D")
             await message.add_reaction(u"\U0001F44E")
             await message.add_reaction(get(message.guild.emojis, name="idk"))
 
     if message.author.id == 309881856898367489: #bully damp
-        if message.channel.name !='vent' and message.channel.name != 'sappy-spot':
+        if message.channel.id != 750594840647172096 and message.channel.id != 828495394194980875:
             if random.randrange(0, 300) == 182:
                 await message.add_reaction(u"\U0001F44E")
 
