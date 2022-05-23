@@ -2,6 +2,7 @@
 import os
 import discord
 import random
+import re
 from discord.utils import get
 from dotenv import load_dotenv
 
@@ -15,7 +16,7 @@ client = discord.Client()
 async def on_message(message):
 
     if message.channel.id == 750111111092764874:
-        if not (message.content.startswith('(')):
+        if not re.match("\*{0,2}\(", message.content):
             await message.add_reaction(u"\U0001F44D")
             await message.add_reaction(u"\U0001F44E")
             await message.add_reaction(get(message.guild.emojis, name="idk"))
