@@ -7,6 +7,12 @@ import logging
 from discord.utils import get
 from dotenv import load_dotenv
 
+# <-- damp suggestions -->
+import asyncio
+from datetime import datetime, date, time, timezone
+from discord.ext import tasks, commands
+# <-- damp suggestions -->
+
 load_dotenv()
 logging.info('loading DISCORD_TOKEN')
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -60,5 +66,40 @@ async def on_message(message):
             await msg.add_reaction(u"\U00002665")
             await msg.add_reaction(u"\U0001F62E")
             await msg.add_reaction(u"\U0001F622")
+
+# <-- damp suggestions -->
+@client.event #idk if this needs to be typed again but just want sharti to start running agenda_post whenever they're booted up
+async def on_ready():
+    agenda_post.start()
+
+@tasks.loop(minutes=60.0) # this task should run every hour and check the time and last message sent in the-gay-agenda
+async def agenda_post():
+    d = datetime.now()
+    lm = get_channel(750111111092764874).last_message()
+    if(d.weekday == 6 and lm.author.id = 819220966022185011 and lm.created_at.weekday not 6): #checks if it's sunday, if there's already a message from sharti, etc
+        logging.info('gay agenda time!')
+        for i in range(1,8):
+            day=''
+            match i: # i uhhhh couldnt think of any way to shorten this so yea
+                case 1:
+                    day = 'Monday'
+                case 2:
+                    day = 'Tuesday'
+                case 3:
+                    day = 'Wednesday'
+                case 4:
+                    day = 'Thursday'
+                case 5:
+                    day = 'Friday'
+                case 6:
+                    day = 'Saturday'
+                case 7:
+                    day = 'Sunday'
+
+            msg = await get_channel(750111111092764874).send('Availability: ' + day + + '<t:' str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
+            await msg.add_reaction(u"\U0001F44D")
+            await msg.add_reaction(u"\U0001F44E")
+            await msg.add_reaction(get(message.guild.emojis, name="idk")) # copied your code here lol
+# <-- damp suggestions -->
 
 client.run(TOKEN)
