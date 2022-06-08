@@ -4,14 +4,10 @@ import discord
 import random
 import re
 import logging
+from agenda import Agenda
 from discord.utils import get
 from dotenv import load_dotenv
-
-# <-- damp suggestions -->
-import asyncio
-from datetime import datetime, date, time, timezone
 from discord.ext import tasks, commands
-# <-- damp suggestions -->
 
 load_dotenv()
 logging.info('loading DISCORD_TOKEN')
@@ -19,10 +15,10 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 logging.info('loading DISCORD_GUILD')
 GUILD = os.getenv('DISCORD_GUILD')
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='$')
 print('Client initiated')
 
-@client.event
+@bot.event
 async def on_message(message):
 
     if message.channel.id == 750111111092764874:
@@ -67,40 +63,9 @@ async def on_message(message):
             await msg.add_reaction(u"\U0001F62E")
             await msg.add_reaction(u"\U0001F622")
 
-# <-- damp suggestions -->
-@client.event #idk if this needs to be typed again but just want sharti to start running agenda_post whenever they're booted up
+@bot.event #idk if this needs to be typed again but just want sharti to start running agenda_post whenever they're booted up
 async def on_ready():
     print("starting...")
-    agenda_post.start()
-
-@tasks.loop(minutes=60.0) # this task should run every hour and check the time and last message sent in the-gay-agenda
-async def agenda_post():
-    d = datetime.now()
-    lm = client.get_channel(750111111092764874).last_message
-    if(d.weekday == 6 and lm.author.id == 819220966022185011 and not lm.created_at.weekday == 6): #checks if it's sunday, if there's already a message from sharti, etc
-        logging.info('gay agenda time!')
-        for i in range(1,8):
-            day=''
-            # i uhhhh couldnt think of any way to shorten this so yea
-            if i == 1:
-                day = 'Monday'
-            if i == 2:
-                day = 'Tuesday'
-            if i == 3:
-                day = 'Wednesday'
-            if i == 4:
-                day = 'Thursday'
-            if i == 5:
-                day = 'Friday'
-            if i == 6:
-                day = 'Saturday'
-            if i == 7:
-                day = 'Sunday'
-
-            msg = await client.get_channel(750111111092764874).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
-            await msg.add_reaction(u"\U0001F44D")
-            await msg.add_reaction(u"\U0001F44E")
-            await msg.add_reaction(get(msg.guild.emojis, name="idk")) # copied your code here lol
-# <-- damp suggestions -->
-
-client.run(TOKEN)
+    bot.add_cog(Agenda(bot))
+    
+bot.run(TOKEN)
