@@ -5,15 +5,15 @@ from datetime import datetime, date, time, timezone
 
 class Agenda(commands.Cog):
     def __init__(self, bot):
-        self.index = 0
+        self.lastAgenda = None
         self.bot = bot
         self.agenda_post.start()
 
     @tasks.loop(minutes=60.0) # this task should run every hour and check the time and last message sent in the-gay-agenda
     async def agenda_post(self):
         d = datetime.now()
-        lm = self.bot.get_channel(750111111092764874).last_message
-        if(d.weekday == 6 and lm.author.id == 819220966022185011 and not lm.created_at.weekday == 6): #checks if it's sunday, if there's already a message from sharti, etc
+        
+        if(self.lastAgenda is None or((d-self.lastAgenda).days > 6 and d.weekday == 6 )): 
             print('gay agenda time!')
             for i in range(1,8):
                 day=''
@@ -36,5 +36,6 @@ class Agenda(commands.Cog):
                 await msg.add_reaction(u"\U0001F44D")
                 await msg.add_reaction(u"\U0001F44E")
                 await msg.add_reaction(get(msg.guild.emojis, name="idk")) # copied your code here lol
+                self.lastAgenda = datetime.now()
         else: 
             print('agenda time hit but conditions not met')
