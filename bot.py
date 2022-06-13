@@ -6,11 +6,14 @@ from discord.ext import commands
 from bullyengine import BullyEngine
 from furrypoll import FurryPoll
 
+#Environment variables
 load_dotenv()
 print('loading DISCORD_TOKEN')
 TOKEN = os.getenv('DISCORD_TOKEN')
 print('loading DISCORD_GUILD')
 GUILD = os.getenv('DISCORD_GUILD')
+print('loading AGENDA_CHANNEL')
+AGENDA_CHANNEL = os.getenv('AGENDA_CHANNEL')
 
 bot = commands.Bot(command_prefix='$')
 print('Client initiated')

@@ -4,8 +4,9 @@ from discord.utils import get
 from datetime import datetime, date, time, timezone
 
 class Agenda(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot, agendaChannel):
         self.lastAgenda = None
+        self.agendaChannel = int(agendaChannel)
         self.bot = bot
         self.agenda_post.start()
 
@@ -32,7 +33,7 @@ class Agenda(commands.Cog):
                 if i == 7:
                     day = 'Sunday'
 
-                msg = await self.bot.get_channel(750111111092764874).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
+                msg = await self.bot.get_channel(self.agendaChannel).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
                 await msg.add_reaction(u"\U0001F44D")
                 await msg.add_reaction(u"\U0001F44E")
                 await msg.add_reaction(get(msg.guild.emojis, name="idk")) # copied your code here lol
