@@ -1,6 +1,6 @@
+import re
 from discord.ext import tasks, commands
 from discord.utils import get
-import asyncio
 from datetime import datetime, date, time, timezone
 
 class Agenda(commands.Cog):
@@ -39,3 +39,12 @@ class Agenda(commands.Cog):
                 self.lastAgenda = datetime.now()
         else: 
             print('agenda time hit but conditions not met')
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.channel.id == 750111111092764874:
+            if not re.match("\*{0,2}\(", message.content):
+                print('Agenda message found: %s' % message.content )
+                await message.add_reaction(u"\U0001F44D")
+                await message.add_reaction(u"\U0001F44E")
+                await message.add_reaction(get(message.guild.emojis, name="idk"))
