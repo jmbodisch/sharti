@@ -21,8 +21,8 @@ print('Client initiated')
 @bot.event #idk if this needs to be typed again but just want sharti to start running agenda_post whenever they're booted up
 async def on_ready():
     print("starting...")
-    bot.add_cog(Agenda(bot))
-    bot.add_cog(FurryPoll(bot))
-    bot.add_cog(BullyEngine(bot))
+    await bot.add_cog(Agenda(bot, AGENDA_CHANNEL))
+    await bot.add_cog(FurryPoll(bot))
+    await bot.add_cog(BullyEngine(bot))
     
 bot.run(TOKEN)
