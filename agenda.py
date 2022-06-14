@@ -43,7 +43,7 @@ class Agenda(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.channel.id == 750111111092764874:
+        if message.channel.id == self.agendaChannel:
             if not re.match("\*{0,2}\(", message.content):
                 print('Agenda message found: %s' % message.content )
                 await message.add_reaction(u"\U0001F44D")
