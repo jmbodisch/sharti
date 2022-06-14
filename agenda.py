@@ -34,9 +34,7 @@ class Agenda(commands.Cog):
                     day = 'Sunday'
 
                 msg = await self.bot.get_channel(self.agendaChannel).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
-                await msg.add_reaction(u"\U0001F44D")
-                await msg.add_reaction(u"\U0001F44E")
-                await msg.add_reaction(get(msg.guild.emojis, name="idk")) # copied your code here lol
+
                 self.lastAgenda = datetime.now()
         else: 
             print('agenda time hit but conditions not met')
