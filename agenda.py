@@ -14,7 +14,7 @@ class Agenda(commands.Cog):
     async def agenda_post(self):
         d = datetime.now()
         
-        if(self.lastAgenda is None or((d-self.lastAgenda).days > 6 and d.weekday == 6 )): 
+        if((self.lastAgenda is None or(d-self.lastAgenda).days > 6) and d.weekday == 6 ): 
             print('gay agenda time!')
             for i in range(1,8):
                 day=''
