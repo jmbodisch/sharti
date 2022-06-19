@@ -13,6 +13,7 @@ class Agenda(commands.Cog):
     @tasks.loop(minutes=60.0) # this task should run every hour and check the time and last message sent in the-gay-agenda
     async def agenda_post(self):
         d = datetime.now()
+        print('Agenda task running at ', d.isoformat())
         
         if((self.lastAgenda is None or(d-self.lastAgenda).days > 6) and d.weekday() == 6 ): 
             print('gay agenda time!')
