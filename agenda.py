@@ -48,3 +48,7 @@ class Agenda(commands.Cog):
                 await message.add_reaction(u"\U0001F44D")
                 await message.add_reaction(u"\U0001F44E")
                 await message.add_reaction(get(message.guild.emojis, name="idk"))
+
+    @commands.command(name='lastagenda')
+    async def last_agenda(self, ctx):
+        await ctx.channel.send('<t:' + str(int(self.lastAgenda.timestamp())) + '>')
