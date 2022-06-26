@@ -1,7 +1,7 @@
 import re
 from discord.ext import tasks, commands
 from discord.utils import get
-from datetime import datetime, date, time, timezone
+from datetime import datetime, timedelta
 
 class Agenda(commands.Cog):
     def __init__(self, bot, agendaChannel):
@@ -33,8 +33,10 @@ class Agenda(commands.Cog):
                     day = 'Saturday'
                 if i == 7:
                     day = 'Sunday'
+                
+                d += timedelta(days=1)
 
-                msg = await self.bot.get_channel(self.agendaChannel).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day + i, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
+                msg = await self.bot.get_channel(self.agendaChannel).send('Availability: ' + day + ' ' + '<t:' + str(int(d.replace(day=d.day, hour=20, minute=0, second=0, microsecond=0).timestamp())) + '>')
 
                 self.lastAgenda = datetime.now()
         else: 
