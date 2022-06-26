@@ -3,6 +3,7 @@ import os
 from agenda import Agenda
 from dotenv import load_dotenv
 from discord.ext import commands
+import discord
 from bullyengine import BullyEngine
 from furrypoll import FurryPoll
 
@@ -15,7 +16,12 @@ GUILD = os.getenv('DISCORD_GUILD')
 print('loading AGENDA_CHANNEL')
 AGENDA_CHANNEL = os.getenv('AGENDA_CHANNEL')
 
-bot = commands.Bot(command_prefix='$')
+intents = discord.Intents.default()
+
+intents.members = True
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='!', intents=intents)
 print('Client initiated')
 
 @bot.event #idk if this needs to be typed again but just want sharti to start running agenda_post whenever they're booted up
@@ -25,4 +31,9 @@ async def on_ready():
     await bot.add_cog(FurryPoll(bot))
     await bot.add_cog(BullyEngine(bot))
     
+@bot.command(name='hi')
+async def greeting(self, ctx):
+    print('hit')
+    await ctx.channel.send('hello')
+
 bot.run(TOKEN)
