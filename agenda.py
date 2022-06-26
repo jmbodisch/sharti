@@ -51,4 +51,4 @@ class Agenda(commands.Cog):
 
     @commands.command(name='lastagenda')
     async def last_agenda(self, ctx):
-        await ctx.channel.send('<t:' + str(int(self.lastAgenda.timestamp())) + '>')
+        await ctx.channel.send('Agenda was last run at <t:' + str(int(self.lastAgenda.timestamp())) + '>')
