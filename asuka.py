@@ -4,7 +4,7 @@ from discord.ext import commands, tasks
 import discord
 from  random import randint
 
-int ihop_frequency = 12
+ihop_frequency = 12
 #^^ 1/ihop_frequency chance to put the ihop asuka dies
 #instead of the normal feliz jueves 
 
