@@ -6,6 +6,7 @@ from discord.ext import commands
 import discord
 from bullyengine import BullyEngine
 from furrypoll import FurryPoll
+from asuka import ItsWednesday
 
 #Environment variables
 load_dotenv()
@@ -15,6 +16,8 @@ print('loading DISCORD_GUILD')
 GUILD = os.getenv('DISCORD_GUILD')
 print('loading AGENDA_CHANNEL')
 AGENDA_CHANNEL = os.getenv('AGENDA_CHANNEL')
+print('loading ANNOUNCE_CHANNEL')
+ANNOUNCE_CHANNEL = os.getenv('ANNOUNCE_CHANNEL')
 
 intents = discord.Intents.default()
 
@@ -30,6 +33,7 @@ async def on_ready():
     await bot.add_cog(Agenda(bot, AGENDA_CHANNEL))
     await bot.add_cog(FurryPoll(bot))
     await bot.add_cog(BullyEngine(bot))
+    await bot.add_cog(ItsWednesday(bot, ANNOUNCE_CHANNEL))
     
 @bot.command(name='hi')
 async def greeting(self, ctx):
