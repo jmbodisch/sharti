@@ -5,12 +5,12 @@ class Nonbinarify(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    vowels = ["a", "e", "i", "o", "u"]
-
-    def nonbinarify(str):
+    @commands.command()
+    async def nb(self, ctx, *, message: str):
+        vowels = ["a", "e", "i", "o", "u"]
         result = ""
-        if str is not None:
-            words = str.split()
+        if message is not None:
+            words = message.split()
             for word in words:
                 newWord = word
                 if len(word) > 1:
@@ -20,8 +20,4 @@ class Nonbinarify(commands.Cog):
                     newWord = newWord.replace(vowel, "x")
                 result += newWord
                 result += " "
-        return result
-
-    @commands.command()
-    async def nb(ctx, *, message: str):
-        await ctx.send(nonbinarify(message))
+        await ctx.send(result)
