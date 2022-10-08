@@ -7,6 +7,7 @@ import discord
 from bullyengine import BullyEngine
 from furrypoll import FurryPoll
 from asuka import ItsWednesday
+from nonbinarify import Nonbinarify
 
 #Environment variables
 load_dotenv()
@@ -34,6 +35,7 @@ async def on_ready():
     await bot.add_cog(FurryPoll(bot))
     await bot.add_cog(BullyEngine(bot))
     await bot.add_cog(ItsWednesday(bot, ANNOUNCE_CHANNEL))
+    await bot.add_cog(Nonbinarify(bot))
     
 @bot.command(name='hi')
 async def greeting(self, ctx):
